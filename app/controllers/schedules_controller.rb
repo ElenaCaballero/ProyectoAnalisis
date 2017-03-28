@@ -6,7 +6,6 @@ class SchedulesController < ApplicationController
   # GET /schedules.json
   def index
     @schedules = Schedule.all
-    @room = get_rooms()
   end
 
   # GET /schedules/1
@@ -15,25 +14,29 @@ class SchedulesController < ApplicationController
   end
 
   def execute
-    r = get_rooms()
-    cou = Course.first
     stu = Student.all
+    start = Time.now
+    logger.warn "Staring a new schedule"
 
     stu.each do |e|
-      e.course.each do |c|
-        assign_course_to_room(c)
+      e.courses.each do |c|
+        print "Alvaro"
+        s = assign_course_to_room(c, e)
       end
     end
 
-    s = Schedule.create!(room: r, course: cou, time: 1, students: stu)
+    finish = Time.now
+    diff = finish - start
+
+    logger.warn "create_new_schedule: " + diff.to_s
 
     respond_to do |format|
-      if r.number == "102"
+      if s.save
         format.html { redirect_to schedules_url, notice: 'Schedule was successfully created.' }
         format.json { render :show, status: :created, location: @schedules }
       else
         format.html { redirect_to "/500.html" }
-        format.json { render json: "OH NO", status: :unprocessable_entity }
+        format.json { render json: @schedule.errors, status: :unprocessable_entity }
       end
     end
   end
