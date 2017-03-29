@@ -1,9 +1,11 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Number:</strong>
-  <%= @room.number %>
-</p>
+	<p>
+	  <strong>Number:</strong>
+	  <%= @room.number %>
+	</p>
 
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+	<button type="button" class="btn btn-default"><%= link_to 'Edit', edit_room_path(@room) %></button> |
+	<button type="button" class="btn btn-default"><%= link_to 'Back', rooms_path %></button>
+</div>

@@ -10,6 +10,7 @@
           <tr>
             <th>Student number</th>
             <th>Course Count</th>
+            <th>Schedules Count</th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -19,6 +20,7 @@
             <tr>
               <td><%= student.student_number %></td>
               <td><%= student.courses.count %></td>
+              <td><%= student.schedules.count %></td>
               <td><%= link_to 'Show', student %></td>
               <td><%= link_to 'Edit', edit_student_path(student) %></td>
               <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,9 +1,18 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
+	<p>
+	  <strong>Name:</strong>
+	  <%= @course.name %>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+	  <ul> 
+	  	<strong>Students:</strong>
+	  	<% @course.students.each do |student| %> 
+	  	<li><%= student.student_number %></li>
+	  	<% end %>
+	  </ul>
+	</p>
+
+	<button type="button" class="btn btn-default"><%= link_to 'Edit', edit_course_path(@course) %></button> |
+	<button type="button" class="btn btn-default"><%= link_to 'Back', courses_path %></button>
+</div>

@@ -14,30 +14,21 @@ class SchedulesController < ApplicationController
   end
 
   def execute
-    stu = Student.all
+    Schedule.delete_all()
     start = Time.now
-    logger.warn "Staring a new schedule"
+    p "Staring a new schedule"
 
-    stu.each do |e|
-      e.courses.each do |c|
-        print "Alvaro"
-        s = assign_course_to_room(c, e)
-      end
-    end
+    generate_schedules()
+    enroll_students()
 
     finish = Time.now
     diff = finish - start
 
-    logger.warn "create_new_schedule: " + diff.to_s
+    p "create_new_schedule: " + diff.to_s
 
     respond_to do |format|
-      if s.save
-        format.html { redirect_to schedules_url, notice: 'Schedule was successfully created.' }
-        format.json { render :show, status: :created, location: @schedules }
-      else
-        format.html { redirect_to "/500.html" }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to schedules_url, notice: 'Schedule was successfully created. Time: ' + diff.to_s }
+      format.json { render :show, status: :created, location: @schedules }
     end
   end
 
